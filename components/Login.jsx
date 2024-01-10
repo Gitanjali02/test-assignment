@@ -18,17 +18,17 @@ const Login = () => {
             const res = await axios.post("/api/auth/login", {
                 email: user.email,
                 password: user.password
-            })
-            console.log(res);
+            });
 
-            if (!res) {
-                toast.error("User not found.")
-                return;
+            if (res.status === 200) {
+                toast.success("Logged in successfully");
+                router.push("/products");
+            } else {
+                toast.error("Invalid login");
             }
-            toast.success("Login Successfull")
-            router.push("/products")
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            toast.error("An error occurred during login");
         }
 
     }

@@ -9,12 +9,13 @@ export async function POST(req: Request) {
             where: {
                 email: data.email,
                 password: data.password,
-            }
-        })
-        if (!response) return NextResponse.error();
+            },
+        });
+
+        if (response.length === 0) return NextResponse.json({error: "User doesnot exists"}, { status: 401 })
 
         return NextResponse.json(response, { status: 200 });
     } catch (error) {
-
+        return NextResponse.error();
     }
 }
